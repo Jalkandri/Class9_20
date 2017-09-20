@@ -1,0 +1,104 @@
+void main(void)
+{
+    setClock();
+    setHardware();
+while(1)
+{
+    alarmOn = GPIOPinRead(alarmSensor);
+if(!weightSensor()) //
+{
+    resetHeater();
+    resetSiren();
+    resetWater();
+    resetDump();
+    TimerON = 0;
+    Time = 0;
+}
+
+if(alarmOn)
+{
+    TimerON = 1;
+    Time = 0;
+}
+
+if(time > 5)
+{
+    setHeater();
+    if(time > 300)
+    {
+        setSiren();
+        if(time > 600)
+        {
+            setWater();
+            if(time > 900)
+            {
+                setDump();
+            }
+        }
+    }
+}
+}
+}
+
+
+
+
+bool weightSensor() {
+uint32_ t weight = GPIOPinRead(scale_Pin);
+
+if ( weight >= BedWeight) {
+        return(1);
+    }
+
+    else {
+        return(0);
+}
+}
+
+void SysTickInt ()
+{
+    if(TimerON)
+        time++;
+}
+
+void setHeater() {
+heaterPin = 1;
+}
+
+void resetHeater() {
+heaterPin = 0;
+}
+
+void setSiren() {
+    sirenPin = 1;
+
+}
+
+void setSiren() {
+    sirenPin = 0;
+}
+
+void setWater() {
+    waterPin = 1;
+}
+
+void setWater() {
+    waterPin = 0;
+}
+
+void setHardware(void) {
+pinMode(OUTPUT, sirenPin);
+pinMode(OUTPUT, heaterPin);
+pinMode(OUTPUT, waterPin);
+pinMode(INPUT, alarmSensor);
+pinMode(INPUT, scale);
+}
+
+void setClock() {
+SysTickPeriodSet(10000000);
+SysTickEnable();
+SysTickIntEnable();
+SysTickIntRegister(SysTickInt);
+}
+
+    
