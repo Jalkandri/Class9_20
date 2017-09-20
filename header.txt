@@ -3,4 +3,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
+bool weightSensor(void);
+void SysTickInt (void);
+void setHeater(void);
+void setSiren(void);
+void setWater(void);
+void setHardware(void);
+void setClock(void);
 
