@@ -10,4 +10,7 @@ void setSiren(void);
 void setWater(void);
 void setHardware(void);
 void setClock(void);
+Bool status;
+Bool AlarmON;
+Int time;
 
